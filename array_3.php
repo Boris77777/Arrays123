@@ -1,9 +1,8 @@
 <?PHP
-function array_3($arr)
+function array_3($arr, $arr2, $Limit_characters)
 {
   $n = 0;
   $temp_array[0] = '';
-  $array_formatting_conditions = array("LEFT", "RIGHT", "LEFT");// Входящие данные: Массив
   global  $array_formatting_conditions2;
 
     for ($j = 0; isset($arr[$j][0]); $j++) // для каждого элемента массива
@@ -11,18 +10,18 @@ function array_3($arr)
       for ($i = 0; isset($arr[$j][$i]); $i++) // для каждого элемента массива
       {
         if (!isset($temp_array[$n])) $temp_array[$n] = '';
-        if (strlen($temp_array[$n] . ' ' . $arr[$j][$i]) <= 16)
+        if (strlen($temp_array[$n] . ' ' . $arr[$j][$i]) <= $Limit_characters)
         {
           if ($i == 0) $temp_array[$n] = $arr[$j][$i]; //собираем массив строк  
           else $temp_array[$n] = $temp_array[$n] . ' ' . $arr[$j][$i]; //собираем массив строк
-          $array_formatting_conditions2[$n] = $array_formatting_conditions[$j];
+          $array_formatting_conditions2[$n] = $arr2[$j];
         }
         else 
         {
           $n++;
           if (!isset($temp_array[$n])) $temp_array[$n] = '';
           $temp_array[$n] = $arr[$j][$i]; //собираем массив строк
-          $array_formatting_conditions2[$n] = $array_formatting_conditions[$j];
+          $array_formatting_conditions2[$n] = $arr2[$j];
         }
       }
       $n++;
@@ -39,7 +38,9 @@ $array_input = array( array("Hello", "world"),
 
 $Limit_characters_line = 16;//Лимит символов в строке
 
-$array_echo = array_3($array_input);
+$array_formatting_conditions = array("LEFT", "RIGHT", "LEFT");// Входящие данные: Массив
+
+$array_echo = array_3($array_input, $array_formatting_conditions, $Limit_characters_line);
 
 $Limit_characters_line_string = (string)($Limit_characters_line);
 
